@@ -1,0 +1,78 @@
+#include<iostream>
+using namespace std;
+int falseCount(int arr[8][8],int row,int column){
+    int cont=0;
+   
+    for(int i=0;i<8;i++){
+        if(arr[i][column]==1){
+            cont++;
+        }
+    }
+   
+    for(int i=row-1,j=column-1;i>=0&&j>=0;i--,j--){
+        if(arr[i][j]==1){
+            cont++;
+        }
+    }
+    for(int i=row+1,j=column+1;i<=7&&j<=7;i++,j++){
+        if(arr[i][j]==1){
+            cont++;
+        }
+    }
+    
+    for(int i=row-1,j=column+1;i>=0&&j<=7;i--,j++){
+        if(arr[i][j]==1){
+            cont++;
+        }
+    }
+    for(int i=row+1,j=column-1;i<=7&&j>=0;i++,j--){
+        if(arr[i][j]==1){
+            cont++;
+        }
+    }
+    return cont;
+}
+void print(int arr[8][8]){
+    for(int i=0;i<8;i++){
+        for(int j=0;j<8;j++){
+            cout<<arr[i][j]<<" ";
+        }
+        cout<<"\n";
+    }
+    cout<<"\n";
+}
+
+void Queen8(int arr[8][8]){
+    int row=0,cont=8,column=0,cont1;
+    for(int i=0;i<8;i++){
+        cont=8;
+        for(int j=0;j<8;j++){
+            arr[i][j]=0;
+            cont1=falseCount(arr,i,j);
+            if(cont>cont1){
+                cont=cont1;
+                row=i;
+                column=j;
+            }
+           
+        }
+       
+        arr[row][column]=1;
+        row=i+1;
+        column=0;
+    }
+    print(arr);
+}
+
+int main(){
+    int arr[8][8],row,cont;
+    for(int i=0;i<8;i++){
+        for(int j=1;j<8;j++){
+            arr[i][j]=0;
+        }
+    }
+    for(int i=0;i<8;i++){
+        arr[i][0]=1;
+    }
+    Queen8(arr);
+}
